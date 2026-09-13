@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: orders
+namePrefix: orders-
+resources:
+  - namespace.yaml
+  - ../../base
+  - horizontal-pod-autoscaler.yaml
+patches:
+  - path: deployment-patch.yaml
+images:
+  - name: app-image
+    newName: traefik/whoami
+    digest: sha256:c4717a8d1f0134a7444e24f881160e033991f23027c6c5a9a3f8fd22e70d1d44
